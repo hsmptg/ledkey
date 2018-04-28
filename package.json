@@ -1,0 +1,19 @@
+{
+  "name": "ledkey",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ledkey.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "ledkey": "ledkey.js"
+    }
+  },
+  "dependencies": {
+    "onoff": "^3.0.2"
+  }
+}
