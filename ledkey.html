@@ -3,25 +3,50 @@
         category: 'Raspberry Pi',
         color: '#a6bbcf',
         defaults: {
-            name: {value:""}
+            name: {value:""},
+            stbpin: {value: 13, validate:RED.validators.number()},
+            clkpin: {value: 12, validate:RED.validators.number()},
+            diopin: {value:  6, validate:RED.validators.number()}
         },
         inputs:1,
         outputs:1,
-        icon: "file.png",
+        icon: "rpi.png",
         label: function() {
-            return this.name||"ledkey";
+            return this.name||"LED&KEY";
         }
     });
 </script>
 
 <script type="text/x-red" data-template-name="ledkey">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-        <p>Hello</p>
-    </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <!--
+  <div class="form-row">
+    <label for="node-input-stbpin"><i class="fa fa-clock-o"></i> STB pin</label>
+    <select id="node-input-stbpin">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+  </div>
+  -->
+  <div class="form-row">
+    <label for="node-input-stbpin"><i class="fa fa-tag"></i> STB pin</label>
+    <input type="text" id="node-input-stbpin" placeholder="GPIO number">
+  </div>
+  <div class="form-row">
+    <label for="node-input-clkpin"><i class="fa fa-tag"></i> CLK pin</label>
+    <input type="text" id="node-input-clkpin" placeholder="GPIO number">
+  </div>
+  <div class="form-row">
+    <label for="node-input-diopin"><i class="fa fa-tag"></i> DIO pin</label>
+    <input type="text" id="node-input-diopin" placeholder="GPIO number">
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="ledkey">
-    <p>A simple node that converts the message payloads into all lower-case characters. OK?</p>
+  <p>A node for the LED&KEY board</p>
+  <p>2nd paragraph</p>
 </script>

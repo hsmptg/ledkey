@@ -14,8 +14,6 @@ var digits = [
     0b00000000  //
 ];
 
-var last = 0;
-
 class ledkey {
   constructor(stb, clk, dio, cb) {
     this.stb = new Gpio(stb, 'out');
@@ -25,16 +23,17 @@ class ledkey {
     this.clk.writeSync(0);
     this.dio.writeSync(0);
     this.cb = cb;
+    this.last = 0;
     this.leds = new Array(8).fill(0);
     this.disps = new Array(8).fill(0);
     this.sendCommand(0x80);
     this.reset();
     this.timer = setInterval(() => {
       var but = this.getButtons();
-      if (last != but) {
-        var mask = last ^ but;
+      if (this.last != but) {
+        var mask = this.last ^ but;
         cb(mask, mask & but);
-        last = but;
+        this.last = but;
       };
     }, 100);
   }
@@ -132,6 +131,11 @@ module.exports = function(RED) {
   function LedKeyNode(config) {
     RED.nodes.createNode(this,config);
     var node = this;
+    node.last = 0;
+
+    // RED.log.log("log"); // ERROR!!!
+    // RED.log.warn(config.stbpin); // OK
+    // RED.log.error("error"); // OK
 
     function cb(mask, state) {
       for (var s=8, b=1; s; s--, b<<=1) {
@@ -145,7 +149,7 @@ module.exports = function(RED) {
       }
     }
 
-    const lk = new ledkey(13, 12, 6, cb);
+    const lk = new ledkey(config.stbpin, config.clkpin, config.diopin, cb);
     lk.setup(1, 0);
 
     node.on('input', function(msg) {
